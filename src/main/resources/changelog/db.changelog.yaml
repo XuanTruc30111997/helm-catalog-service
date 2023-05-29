@@ -1,0 +1,186 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: TrucNguyen
+      comment: "Create ROLE"
+      changes:
+        - sql:
+            sql:
+              DO
+              '
+              BEGIN
+              IF EXISTS (SELECT FROM pg_catalog.pg_roles WHERE  rolname = ''${roleName}'') THEN
+              
+              ELSE
+              CREATE ROLE ${roleName};
+              END IF;
+              END
+              '
+              LANGUAGE PLPGSQL;
+#
+#  - changeSet:
+#      id: 2
+#      author: TrucNguyen
+#      comment: "Grant permission to role"
+#      changes:
+#        - sql:
+#            sql:
+#              DO
+#              '
+#              BEGIN
+#              GRANT USAGE, CREATE ON SCHEMA ${schema} TO ${roleName};
+#              GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${schema} TO ${roleName};
+#              GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ${schema} TO ${roleName};
+#              END
+#              '
+#              LANGUAGE PLPGSQL;
+#
+#  - changeSet:
+#      id: 3
+#      author: TrucNguyen
+#      comment: "Create User"
+#      changes:
+#        - sql:
+#            sql:
+#              DO
+#              '
+#              BEGIN
+#              IF EXISTS (SELECT FROM pg_catalog.pg_roles WHERE  rolname = ''${usrName}'') THEN
+#
+#              ELSE
+#              CREATE USER ${usrName} LOGIN PASSWORD ''${userPassword}'' IN ROLE ${roleName};
+#              END IF;
+#              END
+#              '
+#              LANGUAGE PLPGSQL;
+
+#  - changeSet:
+#      id: 2
+#      author: TrucNguyen
+#      comment: "Create ROLE"
+#      changes:
+#        - sql:
+#            sql:
+#              DO
+#              '
+#              BEGIN
+#              IF EXISTS (SELECT FROM pg_catalog.pg_roles WHERE  rolname = ''${usrName}'') THEN
+#
+#              ELSE
+#              CREATE ROLE ${usrName} LOGIN PASSWORD ''${userPassword}'';
+#              END IF;
+#              END
+#              '
+#              LANGUAGE PLPGSQL;
+
+#  - changeSet:
+#      id: 3
+#      author: TrucNguyen
+#      comment: "Grant permission to ROLE"
+#      changes:
+#        - sql:
+#            sql: GRANT USAGE, CREATE ON SCHEMA ${schema} TO ${usrName};
+#
+#  - changeSet:
+#      id: 4
+#      author: TrucNguyen
+#      comment: "Grant permission to tables for user"
+#      changes:
+#        - sql:
+#            sql: GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${schema} TO ${usrName};
+
+# Using UUID auto generate by DB
+#  - changeSet:
+#      id: 5
+#      author: TrucNguyen
+#      comment: "Create table category"
+#      changes:
+#        - sql:
+#            sql: CREATE TABLE IF NOT EXISTS category (id UUID default gen_random_uuid() primary key, title varchar(255))
+#
+#  - changeSet:
+#      id: 6
+#      author: TrucNguyen
+#      comment: "Create table product"
+#      changes:
+#        - sql:
+#            sql: CREATE TABLE IF NOT EXISTS product (id UUID default gen_random_uuid() primary key, title varchar(255), price varchar(255))
+#
+#  - changeSet:
+#      id: 7
+#      author: TrucNguyen
+#      comment: "Create table product_category"
+#      changes:
+#        - sql:
+#            sql: CREATE TABLE IF NOT EXISTS product_category (id UUID default gen_random_uuid() primary key, productId varchar(255), categoryId varchar(255))
+
+  - changeSet:
+      id: 5
+      author: TrucNguyen
+      comment: "Create table category"
+      changes:
+        - sql:
+            sql: CREATE TABLE IF NOT EXISTS category (id varchar(255) primary key, title varchar(255))
+
+  - changeSet:
+      id: 6
+      author: TrucNguyen
+      comment: "Create table product"
+      changes:
+        - sql:
+            sql: CREATE TABLE IF NOT EXISTS product (id varchar(255) primary key, title varchar(255), price decimal)
+
+  - changeSet:
+      id: 7
+      author: TrucNguyen
+      comment: "Create table product_category"
+      changes:
+        - sql:
+            sql: CREATE TABLE IF NOT EXISTS product_category (id UUID default gen_random_uuid() primary key, productId varchar(255), categoryId varchar(255))
+
+#  GRANT USAGE, CREATE ON SCHEMA "catalog" TO catalog_service_user3;
+
+#  - changeSet:
+#      id: 6
+#      author: TrucNguyen
+#      comment: "Update table product_category with id"
+#      changes:
+#        - sql:
+#            sql: ALTER TABLE product_category ADD COLUMN id int primary key;
+
+
+  - changeSet:
+      id: 8
+      author: TrucNguyen
+      comment: "Grant permission to role"
+      changes:
+        - sql:
+            sql:
+              DO
+              '
+              BEGIN
+              GRANT USAGE, CREATE ON SCHEMA ${schema} TO ${roleName};
+              GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${schema} TO ${roleName};
+              GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA ${schema} TO ${roleName};
+              END
+              '
+              LANGUAGE PLPGSQL;
+
+  - changeSet:
+      id: 9
+      author: TrucNguyen
+      comment: "Create User"
+      changes:
+        - sql:
+            sql:
+              DO
+              '
+              BEGIN
+              IF EXISTS (SELECT FROM pg_catalog.pg_roles WHERE  rolname = ''${usrName}'') THEN
+
+              ELSE
+              CREATE USER ${usrName} LOGIN PASSWORD ''${userPassword}'' IN ROLE ${roleName};
+              END IF;
+              END
+              '
+              LANGUAGE PLPGSQL;

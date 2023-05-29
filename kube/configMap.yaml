@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalog-service-config-map
+data:
+  application.yaml: |
+    spring:
+      datasource:
+        url: jdbc:postgresql://postgresql:5432/testdb
+        username: catalog_service_user
+        password: catalog_service_password
+        driverClassName: org.postgresql.Driver
+        schema: catalog
+    liquibase:
+      enabled: false
+      user: postgres
+      roleName: catalog_service_role
+      password: password
